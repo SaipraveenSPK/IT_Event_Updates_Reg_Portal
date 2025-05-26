@@ -1,0 +1,31 @@
+{% extends "events/base.html" %}
+
+{% block content %}
+<h1 class="text-3xl font-bold underline">My Tickets</h1>
+
+{% if tickets %}
+    <ul class="list-group my-3">
+        {% for ticket in tickets %}
+            <li class="list-group-item">
+                <h3>Event Name : {{ ticket.event.name }}</h3>
+                <p>Organization & Topic: {{ ticket.event.description }}</p>
+                <p>Event Date: {{ ticket.event.date }}</p>
+                <p>Start Time: {{ ticket.event.start_time }}</p>
+                <p>Venue: {{ ticket.event.venue.name }}</p>
+                <p>Location: {{ ticket.event.location }}</p>
+                <p>Address: {{ ticket.event.venue.address }}</p>
+                <p>Purchase Date: {{ ticket.purchase_date }}</p>
+                <p>
+                    {% if ticket.event.venue.virtual_meeting_link %}
+                        <a href="{{ ticket.event.venue.virtual_meeting_link }}" target="_blank">Join Meeting</a>
+                    {% else %}
+                        Offline Mode
+                    {% endif %}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not registered for any tickets yet.</p>
+{% endif %}
+{% endblock %}
